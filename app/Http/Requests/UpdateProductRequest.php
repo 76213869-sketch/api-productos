@@ -18,7 +18,7 @@ class UpdateProductRequest extends FormRequest
         return [
             // Todos los campos son opcionales al actualizar
             'name' => 'sometimes|required|string|max:150',
-            'description' => 'sometimes|nullable|string',
+            'description' => 'sometimes|nullable|string|max:1000',
             'price' => 'sometimes|required|numeric|gt:0',
             'stock' => 'sometimes|required|integer|min:0',
             'status' => 'sometimes|required|boolean',
@@ -40,6 +40,7 @@ class UpdateProductRequest extends FormRequest
             'stock.min' => 'El stock no puede ser negativo.',
             'status.required' => 'El estado es obligatorio.',
             'status.boolean' => 'El estado debe ser verdadero o falso.',
+            'description.max' => 'La descripción no puede superar los 1000 caracteres.',
         ];
     }
 }

@@ -10,6 +10,7 @@ use App\Http\Requests\LoginRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 
 class AuthController extends Controller
@@ -56,10 +57,12 @@ class AuthController extends Controller
             ], 201);
         } catch (\Exception $e) {
 
-            // Capturar cualquier excepción que ocurra durante el registro
-            // Devolver una respuesta JSON con el código HTTP 500 (error interno del servidor)
+            // Registrar el detalle del error en los registros de Laravel
+            Log::error('Error al registrar usuario: ' . $e->getMessage());
+
+            // Devolver una respuesta segura al cliente
             return response()->json([
-                'message' => 'Error al registrar el usuario.',
+                'message' => 'Error interno del servidor.',
             ], 500);
         }
     }
@@ -110,9 +113,12 @@ class AuthController extends Controller
             ], 200);
         } catch (\Exception $e) {
 
-            // Capturar errores internos durante el proceso de autenticación
+            // Registrar el detalle del error en los registros de Laravel
+            Log::error('Error al iniciar sesión: ' . $e->getMessage());
+
+            // Devolver una respuesta segura al cliente
             return response()->json([
-                'message' => 'Error al iniciar sesión.',
+                'message' => 'Error interno del servidor.',
             ], 500);
         }
     }
@@ -131,9 +137,12 @@ class AuthController extends Controller
             ], 200);
         } catch (\Exception $e) {
 
-            // Capturar posibles errores durante el cierre de sesión
+            // Registrar el detalle del error en los registros de Laravel
+            Log::error('Error al cerrar sesión: ' . $e->getMessage());
+
+            // Devolver una respuesta segura al cliente
             return response()->json([
-                'message' => 'Error al cerrar la sesión.',
+                'message' => 'Error interno del servidor.',
             ], 500);
         }
     }

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Exception;
 
 class ProductController extends Controller
@@ -24,12 +25,13 @@ class ProductController extends Controller
                 'data' => $productos
             ], 200);
         } catch (Exception $e) {
+            // Registrar el detalle del error en Laravel
+            Log::error('Error al obtener productos: ' . $e->getMessage());
 
-            // Respuesta cuando ocurre un error en el servidor
+            // Devolver una respuesta segura al cliente
             return response()->json([
                 'success' => false,
-                'message' => 'Error al obtener los productos.',
-                'error' => $e->getMessage()
+                'message' => 'Error interno del servidor.'
             ], 500);
         }
     }
@@ -62,11 +64,13 @@ class ProductController extends Controller
             ], 201);
         } catch (Exception $e) {
 
-            // Controlar errores durante el registro
+            // Registrar el detalle del error en Laravel
+            Log::error('Error al registrar producto' . $e->getMessage());
+
+            // Devolver una respuesta segura al cliente
             return response()->json([
                 'success' => false,
-                'message' => 'Error al registrar el producto.',
-                'error' => $e->getMessage()
+                'message' => 'Error interno del servidor.'
             ], 500);
         }
     }
@@ -95,12 +99,13 @@ class ProductController extends Controller
                 'data' => $producto
             ], 200);
         } catch (Exception $e) {
+            // Registrar el detalle del error en Laravel
+            Log::error('Error al obtener producto ' . $e->getMessage());
 
-            // Controlar errores durante la consulta
+            // Devolver una respuesta segura al cliente
             return response()->json([
                 'success' => false,
-                'message' => 'Error al obtener el producto.',
-                'error' => $e->getMessage()
+                'message' => 'Error interno del servidor.'
             ], 500);
         }
     }
@@ -145,11 +150,13 @@ class ProductController extends Controller
             ], 200);
         } catch (Exception $e) {
 
-            // Controlar errores durante la actualización
+            // Registrar el detalle del error en Laravel
+            Log::error('Error al actualizar producto' . $e->getMessage());
+
+            // Devolver una respuesta segura al cliente
             return response()->json([
                 'success' => false,
-                'message' => 'Error al actualizar el producto.',
-                'error' => $e->getMessage()
+                'message' => 'Error interno del servidor.'
             ], 500);
         }
     }
@@ -182,11 +189,13 @@ class ProductController extends Controller
             ], 200);
         } catch (Exception $e) {
 
-            // Controlar errores durante la eliminación
+            // Registrar el detalle del error en Laravel
+            Log::error('- Error al eliminar producto ' . $e->getMessage());
+
+            // Devolver una respuesta segura al cliente
             return response()->json([
                 'success' => false,
-                'message' => 'Error al eliminar el producto.',
-                'error' => $e->getMessage()
+                'message' => 'Error interno del servidor.'
             ], 500);
         }
     }

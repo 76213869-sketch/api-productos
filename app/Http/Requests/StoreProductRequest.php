@@ -20,7 +20,7 @@ class StoreProductRequest extends FormRequest
             'name' => 'required|string|max:150',
 
             // La descripción es opcional y debe ser texto
-            'description' => 'nullable|string',
+            'description' => 'nullable|string|max:1000',
 
             // El precio es obligatorio y debe ser numérico y mayor que cero
             'price' => 'required|numeric|gt:0',
@@ -48,6 +48,7 @@ class StoreProductRequest extends FormRequest
             'stock.min' => 'El stock no puede ser negativo.',
             'status.required' => 'El estado del producto es obligatorio.',
             'status.boolean' => 'El estado debe ser verdadero o falso.',
+            'description.max' => 'La descripción no puede superar los 1000 caracteres.',
         ];
     }
 }
